@@ -33,10 +33,9 @@ async function run(filename: string) {
     }
 
     const parser = new Parser();
-    const env = createGlobalEnv(args.includes("--time") ? begin : -1, filename.substring(0, filename.lastIndexOf("/") + 1), args.map(value => MK_STRING(value)), currency);
+    const env = createGlobalEnv(args.includes("--time") ? begin : -1, filename.substring(0, filename.lastIndexOf("/") + 1), args.map(value => MK_STRING(value)), currency, args.includes("--return"));
 
     const program = parser.produceAST(input);
-    
     evaluate(program, env);
 }
 

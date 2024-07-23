@@ -17,6 +17,7 @@ export enum TokenType {
     If,
     Else,
     For,
+	Return,
 
     // Grouping * Operators
     BinaryOperator,
@@ -56,6 +57,7 @@ const KEYWORDS: Record<string, TokenType> = {
     if: TokenType.If,
     else: TokenType.Else,
     for: TokenType.For,
+	return: TokenType.Return
 };
 
 /**

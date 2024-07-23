@@ -12,6 +12,7 @@ export type NodeType =
   | "IfStatement"
   | "ForStatement"
   | "TryCatchStatement"
+  | "ReturnStatement"
 
   // EXPRESSIONS
   | "AssignmentExpr"
@@ -76,6 +77,11 @@ export interface ForStatement extends Stmt {
   test: Expr;
   update: AssignmentExpr;
   body: Stmt[];
+}
+
+export interface ReturnStatement extends Stmt {
+  kind: "ReturnStatement";
+  expr?: Expr;
 }
 
 /**  Expressions will result in a value at runtime unlike Statements */

@@ -1,4 +1,4 @@
-import { Stmt, Program, Expr, BinaryExpr, NumericLiteral, Identifier, VarDeclaration, AssignmentExpr, Property, ObjectLiteral, CallExpr, MemberExpr, FunctionDeclaration, StringLiteral, IfStatement, ForStatement, TryCatchStatement, ArrayLiteral } from "./ast";
+import { Stmt, Program, Expr, BinaryExpr, NumericLiteral, Identifier, VarDeclaration, AssignmentExpr, Property, ObjectLiteral, CallExpr, MemberExpr, FunctionDeclaration, StringLiteral, IfStatement, ForStatement, TryCatchStatement, ArrayLiteral, ReturnStatement } from "./ast";
 import { tokenize, Token, TokenType } from "./lexer";
 
 export default class Parser {
@@ -101,6 +101,8 @@ export default class Parser {
                 return this.parse_if_statement();
             case TokenType.For:
                 return this.parse_for_statement();
+			case TokenType.Return:
+				return this.parse_return_statement();
             case TokenType.NewLine:
                 this.at(); // will remove all new lines
                 return this.parse_stmt();
@@ -175,6 +177,25 @@ export default class Parser {
             alternate
         } as IfStatement;
     }
+
+	parse_return_statement(): Stmt {
+		this.eat();
+		let expr: Expr = null;
+		if (this.at().type !== TokenType.Semicolon) {
+			expr = this.parse_expr();
+		}
+		this.expect(TokenType.Semicolon, "Semicolon (\";\") expected following \"return\" statement.");
+		if (expr) {
+			return {
+				kind: "ReturnStatement",
+				expr
+			} as ReturnStatement
+		} else {
+			return {
+				kind: "ReturnStatement"
+			} as ReturnStatement
+		}
+	}
 
     parse_function_declaration(): Stmt {
         this.eat(); // eat fn keyword

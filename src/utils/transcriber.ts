@@ -100,6 +100,7 @@ export function transcribe(code: string, currency: string) {
         .replace_fr("bedivided", "/=")
         .replace_fr("then", "->")
         .replace_fr("ornot", "|")
+		.replace_fr("ghost", "return")
         .replace(/: number/g, '')
         .replace(/: string/g, '')
         .replace(/: object/g, '')
