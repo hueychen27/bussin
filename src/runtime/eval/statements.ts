@@ -45,7 +45,7 @@ export function eval_if_statement(declaration: IfStatement, env: Environment): R
     }
 }
 
-function eval_body(body: Stmt[], env: Environment, newEnv: boolean = true): RuntimeVal {
+export function eval_body(body: Stmt[], env: Environment, newEnv: boolean = true): RuntimeVal {
     let scope: Environment;
 
     if (newEnv) {

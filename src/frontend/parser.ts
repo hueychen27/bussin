@@ -1,4 +1,4 @@
-import { Stmt, Program, Expr, BinaryExpr, NumericLiteral, Identifier, VarDeclaration, AssignmentExpr, Property, ObjectLiteral, CallExpr, MemberExpr, FunctionDeclaration, StringLiteral, IfStatement, ForStatement, TryCatchStatement, ArrayLiteral, ReturnStatement } from "./ast";
+import { Stmt, Program, Expr, BinaryExpr, NumericLiteral, Identifier, VarDeclaration, AssignmentExpr, Property, ObjectLiteral, CallExpr, MemberExpr, FunctionDeclaration, StringLiteral, IfStatement, ForStatement, TryCatchStatement, ArrayLiteral, ReturnStatement, BlockStatement } from "./ast";
 import { tokenize, Token, TokenType } from "./lexer";
 
 export default class Parser {
@@ -103,6 +103,11 @@ export default class Parser {
                 return this.parse_for_statement();
 			case TokenType.Return:
 				return this.parse_return_statement();
+			case TokenType.OpenBrace:
+				return {
+					kind: 'BlockStatement',
+					body: this.parse_block_statement()
+				} as BlockStatement;
             case TokenType.NewLine:
                 this.at(); // will remove all new lines
                 return this.parse_stmt();
