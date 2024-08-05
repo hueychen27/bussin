@@ -94,9 +94,9 @@ export function eval_try_catch_statement(env: Environment, declaration?: TryCatc
     try {
         return eval_body(declaration.body, try_env, false);
     } catch (e) {
-		if (!(e instanceof ReturnError)) {
+        if (!(e instanceof ReturnError)) {
             env.assignVar('error', e)
             return eval_body(declaration.alternate, catch_env, false);
-		}
+        }
     }
 }

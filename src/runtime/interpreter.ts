@@ -36,17 +36,17 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
             return eval_try_catch_statement(env, astNode as TryCatchStatement);
 
         // Handle statements
-		case "BlockStatement":
-			return eval_body((astNode as BlockStatement).body, env, true);
+        case "BlockStatement":
+            return eval_body((astNode as BlockStatement).body, env, true);
         case "VarDeclaration":
             return eval_val_declaration(astNode as VarDeclaration, env);
         case "FunctionDeclaration":
             return eval_function_declaration(astNode as FunctionDeclaration, env);
-		case "ReturnStatement":
-			if (!env.enableReturn) throw new Error("Return statements are redundant unless you pass in the --return option.")
-			if (!env.canHaveReturn) throw new Error("Cannot return outside of function.")
-			throw new ReturnValue((astNode as ReturnStatement).expr ? evaluate((astNode as ReturnStatement).expr, env) : MK_NULL());
-            
+        case "ReturnStatement":
+            if (!env.enableReturn) throw new Error("Return statements are redundant unless you pass in the --return option.")
+            if (!env.canHaveReturn) throw new Error("Cannot return outside of function.")
+            throw new ReturnValue((astNode as ReturnStatement).expr ? evaluate((astNode as ReturnStatement).expr, env) : MK_NULL());
+
         default:
             console.error("This AST node has not yet been setup for interpretation", astNode);
             process.exit(0)
